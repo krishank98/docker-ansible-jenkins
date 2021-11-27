@@ -22,7 +22,7 @@ pipeline{
         
         stage('Docker Build'){
             steps{
-                sh "docker build . -t kammana/hariapp:${DOCKER_TAG} "
+                sh "sudo docker build . -t kammana/hariapp:${DOCKER_TAG} "
             }
         }
         
