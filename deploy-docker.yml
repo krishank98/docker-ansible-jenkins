@@ -22,7 +22,7 @@
     - name: Start the container
       docker_container:
         name: p2
-        image: "krish2356/p2:{{DOCKER_TAG}}"
+        image: "krish2356/jenkins:{{DOCKER_TAG}}"
         state: started
         published_ports:
           - 0.0.0.0:8081:8080
