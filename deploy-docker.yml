@@ -25,4 +25,4 @@
         image: "krish2356/jenkins:{{DOCKER_TAG}}"
         state: started
         published_ports:
-          - 0.0.0.0:8080:8080
+          - 0.0.0.0:8081:8080
