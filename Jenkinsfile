@@ -19,7 +19,14 @@ pipeline{
                 sh "mvn clean package"
             }
         }
-        
+        stage('ansible installation'){
+            steps{
+                sshagent(['ubuntu-jen']) {
+                      sh "echo pwd"
+                      sh 'ssh -t -t ubuntu@3.108.53.209 -o StrictHostKeyChecking=no "sudo apt-get update && sudo apt install ansible"'
+                }
+            }
+        }
         stage('Docker Build'){
             steps{
                 sh "docker build . -t krish2356/jenkins:${DOCKER_TAG}"
@@ -35,14 +42,7 @@ pipeline{
                 sh "docker push krish2356/jenkins:${DOCKER_TAG} "
             }
         }
-        stage('ansible installation'){
-            steps{
-                sshagent(['ubuntu-jen']) {
-                      sh "echo pwd"
-                      sh 'ssh -t -t ubuntu@3.108.53.209 -o StrictHostKeyChecking=no "sudo apt-get update && sudo apt install ansible"'
-                }
-            }
-        }
+        
         stage('Docker Deploy'){
             steps{
               ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
