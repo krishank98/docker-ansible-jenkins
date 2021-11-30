@@ -14,11 +14,11 @@
       package:
         name: docker
         state: present
-    - name: start docker
-      service:
-        name: docker
-        state: started
-        enabled: yes
+#     - name: start docker
+#       service:
+#         name: docker
+#         state: started
+#         enabled: yes
     - name: Ensure we have /etc/docker and manage daemon.json
       block:
         - name: Ensure /etc/docker exists
