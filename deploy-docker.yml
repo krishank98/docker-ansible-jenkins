@@ -19,6 +19,17 @@
         name: docker
         state: started
         enabled: yes
+    - name: Ensure we have /etc/docker and manage daemon.json
+      block:
+        - name: Ensure /etc/docker exists
+          file:
+            path: /etc/docker
+            state: directory
+        - name: manage /etc/docker/daemon.json
+          template:
+            src: docker-daemon.json.j2
+            dest: /etc/docker/daemon.json
+          notify: restart docker service
     - name: Install docker-py python module
       pip:
         name: docker-py
