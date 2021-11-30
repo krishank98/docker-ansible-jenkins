@@ -23,12 +23,13 @@ pipeline{
             steps{
                 sshagent(['ubuntu-jen']) {
                       sh "echo pwd"
-                      sh 'ssh -t -t ubuntu@3.108.53.209 -o StrictHostKeyChecking=no "sudo apt-get update && sudo apt install ansible"'
+                      sh 'ssh -t -t ubuntu@3.108.53.209 -o StrictHostKeyChecking=no "sudo apt-get update && sudo apt install ansible -y"'
                 }
             }
         }
         stage('Docker Build'){
             steps{
+                sh "sudo chmod 777 /var/run/docker.sock"
                 sh "docker build . -t krish2356/jenkins:${DOCKER_TAG}"
             }
         }
