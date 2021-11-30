@@ -10,6 +10,10 @@
       yum:
         name: docker
         state: present
+    - name: ensure docker is installed
+      package:
+        name: docker
+        state: present
     - name: start docker
       service:
         name: docker
