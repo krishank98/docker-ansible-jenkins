@@ -29,7 +29,7 @@ pipeline{
         }
         stage('Docker Build'){
             steps{
-                sh "sudo chmod 777 /var/run/docker.sock"
+                sh "chmod 777 /var/run/docker.sock"
                 sh "docker build . -t krish2356/jenkins:${DOCKER_TAG}"
             }
         }
@@ -46,7 +46,7 @@ pipeline{
         
         stage('Docker Deploy'){
             steps{
-              ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
+              ansiblePlaybook credentialsId: 'ubuntu-jen', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
             }
         }
     }
