@@ -27,7 +27,7 @@
             state: directory
         - name: manage /etc/docker/daemon.json
           template:
-            src: docker-daemon.json.j2
+            src: docker-daemon.json
             dest: /etc/docker/daemon.json
           notify: restart docker service
     - name: Install docker-py python module
