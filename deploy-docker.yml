@@ -6,34 +6,52 @@
       yum:
         name: python3-pip
         state: present
-    - name: Install docker
-      yum:
-        name: docker
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
         state: present
-    - name: ensure docker is installed
-      package:
-        name: docker
+
+   - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
         state: present
+
+   - name: Update apt and install docker-ce
+      apt: update_cache=yes name=docker-ce state=latest
+
+   - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+        
+#     - name: Install docker
+#       yum:
+#         name: docker
+#         state: present
+#     - name: ensure docker is installed
+#       package:
+#         name: docker
+#         state: present
 #     - name: start docker
 #       service:
 #         name: docker
 #         state: started
 #         enabled: yes
-    - name: Ensure we have /etc/docker and manage daemon.json
-      block:
-        - name: Ensure /etc/docker exists
-          file:
-            path: /etc/docker
-            state: directory
-        - name: manage /etc/docker/daemon.json
-          template:
-            src: docker-daemon.json
-            dest: /etc/docker/daemon.json
-          notify: restart docker service
-    - name: Install docker-py python module
-      pip:
-        name: docker-py
-        state: present
+#     - name: Ensure we have /etc/docker and manage daemon.json
+#       block:
+#         - name: Ensure /etc/docker exists
+#           file:
+#             path: /etc/docker
+#             state: directory
+#         - name: manage /etc/docker/daemon.json
+#           template:
+#             src: docker-daemon.json
+#             dest: /etc/docker/daemon.json
+#           notify: restart docker service
+#     - name: Install docker-py python module
+#       pip:
+#         name: docker-py
+#         state: present
     - name: Start the container
       docker_container:
         name: jenkins
