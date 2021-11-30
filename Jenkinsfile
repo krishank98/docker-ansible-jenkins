@@ -23,7 +23,7 @@ pipeline{
             steps{
                 sshagent(['ubuntu-jen']) {
                       sh "echo pwd"
-                      sh 'ssh -t -t ubuntu@3.108.53.209 -o StrictHostKeyChecking=no "sudo apt-get update && sudo apt install ansible -y"'
+                      sh 'ssh -t -t ec2-user@172.31.43.42 -o StrictHostKeyChecking=no "sudo yum update -y && sudo yum install ansible2 -y"'
                 }
             }
         }
