@@ -22,7 +22,6 @@ pipeline{
         stage('ansible installation'){
                      steps{
                       sh "echo pwd"
-                      sh "sudo su"
                       sh 'apt install ansible -y'
             }
         }
