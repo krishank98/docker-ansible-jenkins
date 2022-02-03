@@ -22,7 +22,7 @@ pipeline{
         stage('ansible installation'){
                      steps{
                       sh "echo pwd"
-                      sh 'sudo apt update -y && sudo apt install ansible -y'
+                      sh 'apt update -y && apt install ansible -y'
             }
         }
         stage('Docker Build'){
