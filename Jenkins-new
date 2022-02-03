@@ -20,11 +20,8 @@ pipeline{
             }
         }
         stage('ansible installation'){
-            steps{
-                sshagent(['ubuntu-jen']) {
                       sh "echo pwd"
-                      sh 'ssh -t -t ec2-user@172.31.4.199 -o StrictHostKeyChecking=no "sudo yum update -y && sudo amazon-linux-extras install ansible2 -y"'
-                }
+                      sh 'sudo apt update -y && sudo apt install ansible -y'
             }
         }
         stage('Docker Build'){
