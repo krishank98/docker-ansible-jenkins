@@ -19,12 +19,7 @@ pipeline{
                 sh "mvn clean package"
             }
         }
-        stage('ansible installation'){
-                     steps{
-                      sh "echo pwd"
-                      sh 'apt install ansible -y'
-            }
-        }
+     
         stage('Docker Build'){
             steps{
                // sh "chmod 777 /var/run/docker.sock"
